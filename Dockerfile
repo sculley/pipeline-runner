@@ -2,8 +2,8 @@ FROM alpine:latest
 
 RUN apk add --no-cache git curl jq bash yq wget
 
-ARG TF_VERSION
-ARG HELM_VERSION
+ARG TF_VERSION=1.13.3
+ARG HELM_VERSION=3.19.0
  
 RUN apk add --update --virtual .deps --no-cache gnupg && \
     cd /tmp && \
