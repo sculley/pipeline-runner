@@ -5,6 +5,7 @@ RUN apk add --no-cache git curl jq bash yq wget
 ARG TF_VERSION=1.13.3
 ARG HELM_VERSION=3.19.0
  
+# Install Terraform
 RUN apk add --update --virtual .deps --no-cache gnupg && \
     cd /tmp && \
     wget https://releases.hashicorp.com/terraform/${TF_VERSION}/terraform_${TF_VERSION}_linux_amd64.zip && \
@@ -18,6 +19,10 @@ RUN apk add --update --virtual .deps --no-cache gnupg && \
     rm -f /tmp/terraform_${TF_VERSION}_linux_amd64.zip terraform_${TF_VERSION}_SHA256SUMS ${TF_VERSION}/terraform_${TF_VERSION}_SHA256SUMS.sig && \
     apk del .deps
 
+# Install tflint
+RUN curl -s https://raw.githubusercontent.com/terraform-linters/tflint/master/install_linux.sh | bash
+
+# Install Helm
 RUN case `uname -m` in \
         x86_64) ARCH=amd64; ;; \
         armv7l) ARCH=arm; ;; \
